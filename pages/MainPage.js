@@ -6,7 +6,8 @@ import data from '../data.json';
 import Card from '../components/Card';
 import Loading from '../components/Loading';
 import { StatusBar } from 'expo-status-bar';
-export default function MainPage() {
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
+export default function MainPage({navigation,route}) {
   //useState 사용법
 	//[state,setState] 에서 state는 이 컴포넌트에서 관리될 상태 데이터를 담고 있는 변수
   //setState는 state를 변경시킬때 사용해야하는 함수
@@ -25,6 +26,10 @@ export default function MainPage() {
 		//뒤의 1000 숫자는 1초를 뜻함
     //1초 뒤에 실행되는 코드들이 담겨 있는 함수
     setTimeout(()=>{
+        //헤더의 타이틀 변경
+        navigation.setOptions({
+          title:'나만의 꿀팁'
+      })  
         setState(data.tip)
         setCateState(data.tip)
         setReady(false)
@@ -53,10 +58,14 @@ export default function MainPage() {
     /*
       return 구문 안에서는 {슬래시 + * 방식으로 주석
     */
+
     <ScrollView style={styles.container}>
-      <StatusBar style="dark" />
-      <Text style={styles.title}>나만의 꿀팁</Text>
+      <StatusBar style="light" />
+      {/* <Text style={styles.title}>나만의 꿀팁</Text> */}
 			 <Text style={styles.weather}>오늘의 날씨: {todayWeather + '°C ' + todayCondition} </Text>
+       <TouchableOpacity style={styles.aboutbtn}>
+         <Text style={styles.aboutBtn_text} onPress={() => navigation.navigate('AboutPage')}>소개 페이지</Text>
+       </TouchableOpacity>
       <Image style={styles.mainImage} source={{uri:main}}/>
       <ScrollView style={styles.middleContainer} horizontal indicatorStyle={"white"}>
       <TouchableOpacity style={styles.middleButtonAll} onPress={()=>{category('전체보기')}}><Text style={styles.middleButtonTextAll}>전체보기</Text></TouchableOpacity>
@@ -69,7 +78,7 @@ export default function MainPage() {
          {/* 하나의 카드 영역을 나타내는 View */}
          {
           cateState.map((content,i)=>{
-            return (<Card content={content} key={i}/>)
+            return (<Card content={content} key={i} navigation={navigation}/>)
           })
         }
         
@@ -93,9 +102,22 @@ const styles = StyleSheet.create({
     //왼쪽 공간으로 부터 이격
     marginLeft:20
   },
-weather:{
+  weather:{
     alignSelf:"flex-end",
     paddingRight:20
+  },
+  aboutbtn:{
+    backgroundColor : '#F6C8D4',
+    width : 100,
+    height : 40,
+    borderRadius : 10,
+    alignSelf : 'flex-end',
+    marginRight : 20,
+    marginTop : 10
+  },
+  aboutBtn_text:{
+    color : '#fff',
+    padding : 11
   },
   mainImage: {
     //컨텐츠의 넓이 값

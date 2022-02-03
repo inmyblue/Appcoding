@@ -1,9 +1,28 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
+import { StatusBar } from 'expo-status-bar';
+import * as Linking from 'expo-linking';
 
-export default function AboutPage(){
+export default function AboutPage({navigation, route}){
+    
+
+    useEffect(()=>{
+        navigation.setOptions({
+            title : '소개페이지',
+            headerStyle : {
+                backgroundColor : '#262C74'
+            },
+            headerTintColor : '#fff',
+        })
+    },[])
+
+    const insta = () => {
+        Linking.openURL("https://www.instagram.com")
+    }
+
     return (
         <View style={styles.container}>
+            <StatusBar style="light" />
             <Text style={styles.title}>
                 HI! 스파르타코딩 앱개발반에 오신것을 환영합니다
             </Text>
@@ -24,13 +43,13 @@ export default function AboutPage(){
                     꼭 완주 하셔서 꼭 여러분것으로 만들어가시길 바랍니다
                 </Text>
 
-                <TouchableOpacity style={styles.ins_btn}>
+                <TouchableOpacity style={styles.ins_btn} onPress={()=>insta()}>
                     여러분의 인스타계정
                 </TouchableOpacity>
             </View>
 
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
