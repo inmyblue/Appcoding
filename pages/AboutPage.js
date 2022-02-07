@@ -44,7 +44,7 @@ export default function AboutPage({navigation, route}){
                 </Text>
 
                 <TouchableOpacity style={styles.ins_btn} onPress={()=>insta()}>
-                    여러분의 인스타계정
+                    <Text style={styles.btn_text}>여러분의 인스타계정</Text>
                 </TouchableOpacity>
             </View>
 
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         marginTop : 60,
         color : "#fff",
         fontSize : 27,
-        fontWeight : 800
+        fontWeight : "800"
     },
     contents_container:{
         marginTop : 30,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     con_title:{
         fontSize : 20,
-        fontWeight : 800,
+        fontWeight : "800",
         textAlign : 'center',
         padding : 10
     },
@@ -95,11 +95,15 @@ const styles = StyleSheet.create({
     ins_btn:{
         marginTop : 20,
         backgroundColor : '#F3B13E',
-        color : '#fff',
         alignSelf : 'center',
         width : '60%',
         height : '10%',
         borderRadius : 20,
-        padding : 18
+        
+    },
+    btn_text:{
+        paddingTop : 15,
+        color : '#fff',
+        textAlign : 'center'
     }
 });
